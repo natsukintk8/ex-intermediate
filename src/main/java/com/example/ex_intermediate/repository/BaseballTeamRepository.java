@@ -8,6 +8,8 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * public.teamsテーブルを操作すうリポジトリです.
  */
@@ -19,6 +21,7 @@ public class BaseballTeamRepository {
     private static final RowMapper<BaseballTeam> BASEBALL_TEAM_ROW_MAPPER
             = (rs,i) -> {
         BaseballTeam baseballTeam = new BaseballTeam();
+        baseballTeam.setId(rs.getInt("id"));
         baseballTeam.setLeagueName(rs.getString("league_name"));
         baseballTeam.setTeamName(rs.getString("team_name"));
         baseballTeam.setHeadquarters(rs.getString("headquarters"));
@@ -38,7 +41,7 @@ public class BaseballTeamRepository {
                 SELECT
                   id,league_name,team_name,headquarters,inauguration,history
                  FROM
-                  public.teams
+                  teams
                  WHERE
                   id = :id
                 """;
@@ -47,6 +50,24 @@ public class BaseballTeamRepository {
                 .addValue("id",id);
 
         return template.queryForObject(sql,param,BASEBALL_TEAM_ROW_MAPPER);
+        }
+
+    /**
+     *野球チームの情報を全件検索する.
+     *
+     * @return 全野球チーム情報
+     */
+    public List<BaseballTeam> findAll(){
+        String sql = """
+                 SELECT
+                  id,league_name,team_name,headquarters,inauguration,history
+                 FROM
+                  teams
+                 ORDER BY
+                  inauguration ASC
+                """;
+
+        return template.query(sql,BASEBALL_TEAM_ROW_MAPPER);
         }
     }
 

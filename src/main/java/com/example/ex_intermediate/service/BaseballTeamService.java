@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 野球チーム情報関連の業務処理を行うサービスです.
  */
@@ -23,6 +25,15 @@ public class BaseballTeamService {
      */
     public BaseballTeam findById(Integer id){
         return repository.findById(id);
+    }
+
+    /**
+     *野球チームの情報を全件検索する.
+     *
+     * @return 全野球チーム情報
+     */
+    public List<BaseballTeam> findAll(){
+        return repository.findAll();
     }
 
 }
