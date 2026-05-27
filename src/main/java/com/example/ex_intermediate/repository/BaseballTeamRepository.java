@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * public.teamsテーブルを操作するリポジトリです.
+ * teamsテーブルを操作するリポジトリです.
  */
 @Repository
 public class BaseballTeamRepository {
