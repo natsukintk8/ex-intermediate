@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * hotelsテーブルを操作するリポジトリです.
+ */
 @Repository
 public class HotelRepository {
     @Autowired
@@ -19,6 +22,12 @@ public class HotelRepository {
     private static final RowMapper<Hotel> HOTEL_ROW_MAPPER
             = new BeanPropertyRowMapper<>(Hotel.class);
 
+    /**
+     * 価格からホテルを検索する.
+     *
+     * @param price 価格
+     * @return 検索結果
+     */
     public List<Hotel> findByPrice(Integer price){
         String sql = """
                  SELECT
